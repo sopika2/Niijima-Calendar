@@ -12,6 +12,11 @@ services:
     init: true
     user: '${PUID:-1000}:${PGID:-1000}'
     env_file: .env
+    environment:
+      # Behind the Cloudflare tunnel and Traefik the app only sees plain http. ORIGIN tells
+      # SvelteKit its real https address, so form posts pass its CSRF check and the sign-in
+      # cookie is Secure. Taken from PUBLIC_URL in .env.
+      ORIGIN: ${PUBLIC_URL:-https://calendar.niijimasisters.com}
     volumes:
       # The database. Back this folder up.
       - ./data:/app/data

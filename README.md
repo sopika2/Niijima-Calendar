@@ -58,7 +58,11 @@ In `.env`:
    all of them (the `nj_session` cookie). Create the secret once with `openssl rand -hex 32`.
 3. **Who may sign in**: your Discord user ids go in `config.yml` → `access.discord_user_ids`.
    Don't know yours? Sign in once; the page shows it with a copy button.
-4. `FEED_TOKEN` and `HOME_TOKEN`: long random strings (`openssl rand -hex 24`), or empty to
+4. **`PUBLIC_URL`** must be the real https address. Behind the Cloudflare tunnel and Traefik
+   the app only sees plain http, so `compose.yml` passes `PUBLIC_URL` to it as `ORIGIN`.
+   That keeps SvelteKit's CSRF check passing for form posts (saving an event) and the sign-in
+   cookie `Secure`. If you run it some other way, set `ORIGIN` yourself.
+5. `FEED_TOKEN` and `HOME_TOKEN`: long random strings (`openssl rand -hex 24`), or empty to
    turn the feed / API off.
 
 Put the host's art in `./assets` (e.g. `assets/sae.webp`, PNG or WebP) and name it in
