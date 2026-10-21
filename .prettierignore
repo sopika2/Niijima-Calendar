@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+drizzle/
+build/
+.svelte-kit/
+data/
+assets/
+src/lib/server/fixtures/

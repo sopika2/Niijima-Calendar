@@ -1,0 +1,34 @@
+# Niijima Calendar: one container behind your existing Traefik and Cloudflare Tunnel.
+#
+#   cp config.example.yml config.yml && cp .env.example .env   (then fill in .env)
+#   docker compose up -d --build
+
+services:
+  calendar:
+    build: .
+    image: niijima/calendar:latest
+    container_name: niijima-calendar
+    restart: unless-stopped
+    init: true
+    user: '${PUID:-1000}:${PGID:-1000}'
+    env_file: .env
+    volumes:
+      # The database. Back this folder up.
+      - ./data:/app/data
+      # Your own art for the host (e.g. sae.webp), read-only. Never committed to git.
+      - ./assets:/app/assets:ro
+      # This folder, read-only: the app reads config.yml from it.
+      - ./:/app/settings:ro
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-proxy}
+      - traefik.http.routers.calendar.rule=Host(`${APP_HOST:-calendar.niijimasisters.com}`)
+      - traefik.http.routers.calendar.entrypoints=${TRAEFIK_ENTRYPOINT:-web}
+      - traefik.http.services.calendar.loadbalancer.server.port=3000
+
+networks:
+  proxy:
+    name: ${TRAEFIK_NETWORK:-proxy}
+    external: true

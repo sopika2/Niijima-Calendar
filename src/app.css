@@ -1,0 +1,112 @@
+/*
+ * Niijima Calendar: what the app adds on top of @niijima/design. Colours come from its
+ * --nj-* tokens only, so the persona switch re-colours everything.
+ */
+html {
+	background: var(--nj-bg);
+	color-scheme: dark;
+	-webkit-text-size-adjust: 100%;
+	scroll-padding-top: 80px;
+}
+body {
+	margin: 0;
+	min-height: 100dvh;
+	background: var(--nj-bg);
+	font-size: 17px;
+	line-height: 1.4;
+	overflow-x: hidden;
+}
+
+/* Each sister's colour: Makoto's cyan, Sae's gold, thief red for both. */
+[data-owner='makoto'] {
+	--own: var(--nj-makoto-cyan);
+}
+[data-owner='sae'] {
+	--own: var(--nj-sae-gold);
+}
+[data-owner='shared'] {
+	--own: var(--nj-red-text);
+}
+
+.nj a:not([class]) {
+	color: var(--nj-hi);
+}
+.nj button {
+	font-family: inherit;
+}
+
+/* A small kicker label in the body font. */
+.kicker {
+	margin: 0;
+	color: var(--nj-text-muted);
+	font: 700 12px/1.2 var(--nj-font-body);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+/* Square-ish icon buttons: prev / next / close. */
+.icon-btn {
+	display: inline-grid;
+	place-items: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 0 10px;
+	border: 0;
+	background: var(--nj-ink);
+	color: var(--nj-text);
+	font: 400 20px/1 var(--nj-font-display);
+	letter-spacing: 0.06em;
+	text-decoration: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	clip-path: polygon(8% 0, 100% 6%, 92% 100%, 0 94%);
+	transition:
+		transform var(--nj-fast) var(--nj-snap),
+		background-color 0.06s,
+		color 0.06s;
+}
+.icon-btn:hover,
+.icon-btn:focus-visible {
+	background: var(--nj-paper);
+	color: var(--nj-ink);
+	transform: scale(1.08) rotate(-3deg);
+}
+.icon-btn .arrow {
+	width: 0.6em;
+	height: 0.7em;
+	background: currentColor;
+	clip-path: polygon(0 0, 100% 50%, 0 100%, 22% 50%);
+}
+.icon-btn .arrow.back {
+	transform: scaleX(-1);
+}
+
+/* Owner tag on someone else's event. */
+.who {
+	display: inline-block;
+	padding: 2px 6px 1px;
+	background: var(--own);
+	color: var(--nj-ink);
+	font: 800 10px/1.3 var(--nj-font-body);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	transform: rotate(-3deg);
+}
+.via {
+	display: inline-block;
+	padding: 1px 6px 0;
+	border: 1px dashed var(--nj-text-muted);
+	color: var(--nj-text-muted);
+	font: 700 10px/1.3 var(--nj-font-body);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}

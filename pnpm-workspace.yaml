@@ -1,0 +1,4 @@
+# A single package; this file only holds pnpm settings.
+onlyBuiltDependencies:
+  - better-sqlite3
+  - esbuild
