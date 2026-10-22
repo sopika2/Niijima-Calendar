@@ -52,7 +52,7 @@ function readConfig(path: string): Config {
 }
 
 function accessGate(config: Config): AccessGate {
-	const mode = value('ACCESS_MODE') ?? 'discord';
+	const mode = value('ACCESS_MODE') ?? 'off';
 	if (mode !== 'discord' && mode !== 'off') throw new Error('ACCESS_MODE must be discord or off');
 	if (mode === 'off') return accessOff();
 	const required = {
@@ -142,6 +142,6 @@ async function boot(): Promise<Runtime> {
 			`home API ${app.homeToken ? 'on' : 'off'} · ${config.subscriptions.length} subscription(s)`
 	);
 	if (access.mode === 'off')
-		log('boot', 'WARNING: ACCESS_MODE=off. Never expose this instance to the internet.');
+		log('boot', 'No sign-in (ACCESS_MODE=off): anyone who can reach this app gets in.');
 	return app;
 }
