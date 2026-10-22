@@ -18,7 +18,7 @@ week_starts: monday
 # file shows a silhouette instead. One line is picked per day.
 host:
   name: Sae
-  art: /assets/sae.webp
+  art: /assets/menu-sae.png
   lines:
     - Your schedule. I expect you to keep it — no excuses.
     - A good prosecutor never misses a hearing. Check what is coming up.
