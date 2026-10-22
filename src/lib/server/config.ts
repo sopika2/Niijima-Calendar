@@ -41,7 +41,7 @@ export const configSchema = z.strictObject({
 			art: z
 				.string()
 				.regex(/^\/assets\/[\w.-]+$/, { message: 'must look like /assets/sae.webp' })
-				.default('/assets/sae.webp'),
+				.default('/assets/menu-sae.png'),
 			lines: z.array(z.string().min(1)).min(1).default(DEFAULT_LINES)
 		})
 		.prefault({}),

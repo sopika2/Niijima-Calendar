@@ -65,7 +65,7 @@ In `.env`:
 5. `FEED_TOKEN` and `HOME_TOKEN`: long random strings (`openssl rand -hex 24`), or empty to
    turn the feed / API off.
 
-Put the host's art in `./assets` (e.g. `assets/sae.webp`, PNG or WebP) and name it in
+The host's art comes from `~/niijima-data/assets`, the folder every Niijima app and the landing page share (set `NIIJIMA_ASSETS` in `.env` to use another): by default `menu-sae.png`, set in
 `config.yml → host.art`. Until then a silhouette stands in. Never commit game art; the repo
 is public.
 
