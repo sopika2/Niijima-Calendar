@@ -2,16 +2,24 @@
 
 # ── Production dependencies (only better-sqlite3; everything else is bundled) ──
 FROM node:22-slim AS deps
-ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true
+ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true npm_config_nodedir=/usr/local
 RUN corepack enable
+# Build tools for better-sqlite3 when no prebuilt binary can be downloaded.
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates python3 make g++ \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 RUN pnpm install --prod --frozen-lockfile
 
 # ── Build ────────────────────────────────────────────────────────────────────
 FROM node:22-slim AS build
-ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true
+ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true npm_config_nodedir=/usr/local
 RUN corepack enable
+# Build tools for better-sqlite3 when no prebuilt binary can be downloaded.
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates python3 make g++ \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
