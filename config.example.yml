@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Niijima Calendar · config.yml
+#
+#  Copy this file to config.yml and change what you need; anything you leave out
+#  uses the value shown here. A typo stops the app at startup with a message
+#  naming the setting. Restart after editing:  docker compose restart calendar
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Every date and time is shown in this zone, and new events are saved in it.
+# An IANA name (Europe/Budapest, Asia/Tokyo…). Daylight saving is handled.
+timezone: Europe/Budapest
+
+# First column of the month grid: monday or sunday.
+week_starts: monday
+
+# The host who greets you. Put your own image in the ./assets folder next to
+# compose.yml (PNG or WebP; never commit game art) and name it here. A missing
+# file shows a silhouette instead. One line is picked per day.
+host:
+  name: Sae
+  art: /assets/sae.webp
+  lines:
+    - Your schedule. I expect you to keep it — no excuses.
+    - A good prosecutor never misses a hearing. Check what is coming up.
+    - Plans are only as good as the follow-through. Let's see the week.
+    - Don't let the days ambush you. Read the calendar first.
+
+access:
+  # Discord accounts allowed to sign in. Find yours by signing in once (the page
+  # shows it), or in Discord: Settings → Advanced → Developer Mode, then
+  # right-click your name → Copy User ID. Quote it.
+  discord_user_ids: []
+  # discord_user_ids:
+  #   - '123456789012345678'
+
+# Other calendars to show read-only next to your own, refreshed every 30 minutes.
+# For a Google Calendar: Settings → the calendar → "Secret address in iCal format".
+# owner decides who sees it: makoto, sae or shared (both).
+subscriptions: []
+# subscriptions:
+#   - name: Prosecutor's office
+#     url: https://calendar.google.com/calendar/ical/…/private-…/basic.ics
+#     owner: sae
+#   - name: Holidays
+#     url: webcal://example.com/holidays.ics
+#     owner: shared
